@@ -1,0 +1,247 @@
+1. Creating Collections
+
+	CREATE TABLE Employees (
+	EmployeeID INT PRIMARY KEY,
+	FirstName VARCHAR(40) NOT NULL,
+	LastName VARCHAR(40) NOT NULL, 
+	DateOfBirth DATE NOT NULL,
+	Department VARCHAR(40) NOT NULL
+	);
+
+
+	CREATE TABLE Orders (
+  	OrderID INT PRIMARY KEY,
+  	OrderDate DATE NOT NULL,
+	CustomerID INT NOT NULL,
+ 	Amount INT NOT NULL
+  	);
+
+
+2. Inserting Data into Collections
+
+	INSERT INTO Employees (EmployeeID, FirstName, LastName, DateOfBirth, Department) VALUES (1, 'Alice', 'Johnson', '1990-01-15', 'HR');
+
+	
+	INSERT INTO Orders (OrderID, OrderDate, CustomerID, Amount) VALUES (1, '2024-09-15', '101', 1000);
+	INSERT INTO Orders (OrderID, OrderDate, CustomerID, Amount) VALUES (2, '2024-09-21', '102', 2000);
+	INSERT INTO Orders (OrderID, OrderDate, CustomerID, Amount) VALUES (3, '2024-09-22', '103', 3000);
+	INSERT INTO Orders (OrderID, OrderDate, CustomerID, Amount) VALUES (4, '2024-09-27', '104', 4000);
+	INSERT INTO Orders (OrderID, OrderDate, CustomerID, Amount) VALUES (5, '2024-09-25', '105', 5000);
+
+
+3. Selecting Data from Collections
+
+	SELECT * FROM Employees
+
+	SELECT * FROM Orders
+
+	SELECT FirstName, LastName FROM Employees
+
+	SELECT OrderID, Amount FROM Orders
+
+
+4. Updating Data in a Collection
+
+	UPDATE Employees SET Department='Finance' WHERE EmployeeID=1;
+
+	UPDATE Orders SET Amount=500.00 WHERE OrderID=2;
+
+
+5. Deleting Data from a Collection
+
+	DELETE FROM Employees WHERE EmployeeID=1;
+
+	DELETE FROM Orders WHERE Amount < 100;
+
+
+6. Filtering Data with WHERE Clause
+
+	SELECT * FROM Employees WHERE Department='HR';
+
+	SELECT * FROM Orders WHERE Amount > 300;
+
+
+7. Using AND / OR in Queries
+
+	SELECT * FROM Employees WHERE Department='HR' AND DateOfBrith > '1990-01-01';
+
+	SELECT * FROM Orders WHERE Amount > 300  AND OrderDate < '2023-01-01';
+
+	SELECT * FROM Employees WHERE Department='HR' OR Department='Finance';
+
+	SELECT * FROM Orders WHERE Amount < 100  OR OrderDate > '2023-01-01';
+
+
+8. Sorting Results with ORDER BY
+
+	SELECT * FROM Employees ORDER BY LastName ASC;
+
+	SELECT * FROM Orders ORDER BY Amount DESC;
+
+
+9. Using Aggregate Functions
+	
+	SELECT COUNT(*) AS EmployeeCount FROM Employees;
+
+	SELECT COUNT(*) AS OrderCount FROM Orders;
+
+	SELECT AVG(Amount) AS AverageAmount FROM Orders;
+
+	SELECT AVG(YEAR(CURRENT_DATE) - YEAR(DateOfBirth)) AS AverageAge FROM Employees;
+
+
+10. Grouping Data with GROUP BY
+
+	SELECT Department, COUNT(*) AS EmployeeCount FROM Employees GROUP BY Department;
+
+	SELECT CustomerID, SUM(Amount) AS TotalAmount FROM Orders GROUP BY CustomerID;
+
+
+11. Using HAVING Clause
+
+	 SELECT Department, COUNT(*) AS EmployeeCount FROM Employees GROUP BY Department HAVING COUNT(*) > 5;
+
+	 SELECT CustomerID, SUM(*) AS EmployeeCount FROM Employees GROUP BY Department HAVING SUM(Amount) > 1000;
+
+
+12. Joining Collections
+
+	SELECT Employees.FirstName, Employees.LastName, Orders.Amount
+	FROM Employees
+	INNER JOIN Orders ON Employees.EmployeeID = Orders.CustomerID;
+
+
+	SELECT Employees.FirstName, Employees.LastName, Orders.Amount
+	FROM Employees
+	LEFT JOIN Orders ON Employees.EmployeeID = Orders.CustomerID;
+	
+
+PROJECT 
+
+10. Restaurant Management System
+
+1. Create Collections (Tables)
+
+CREATE TABLE MenuItems (
+    ItemID INT PRIMARY KEY,
+    Name VARCHAR(100),
+    Category VARCHAR(50),
+    Price DECIMAL(5,2),
+    Available BOOLEAN
+);
+
+CREATE TABLE Orders (
+    OrderID INT PRIMARY KEY,
+    CustomerID INT,
+    ItemID INT,
+    Status VARCHAR(50),
+    OrderDate DATE
+);
+
+CREATE TABLE Customers (
+    CustomerID INT PRIMARY KEY,
+    Name VARCHAR(100),
+    Email VARCHAR(100)
+);
+
+CREATE TABLE Employees (
+    EmployeeID INT PRIMARY KEY,
+    Name VARCHAR(100),
+    Position VARCHAR(50)
+);
+
+CREATE TABLE Reservations (
+    ReservationID INT PRIMARY KEY,
+    CustomerID INT,
+    Date DATE,
+    Status VARCHAR(50)
+);
+
+
+2. Insert Menu Items
+
+INSERT INTO MenuItems (ItemID, Name, Category, Price, Available) VALUES (1, 'Caesar Salad', 'Appetizer', 8.99, TRUE),(2, 'Grilled Chicken', 'Entree', 15.99, TRUE);
+
+
+3. Query to Select All Menu Items in a Specific Category
+
+
+SELECT * FROM MenuItems WHERE Category = 'Appetizer';
+
+
+4. Update the Order Status After Preparation
+
+
+UPDATE Orders SET Status = 'Prepared' WHERE OrderID = 101;
+
+
+5. Delete Reservations That Have Been Canceled
+
+
+DELETE FROM Reservations WHERE Status = 'Canceled';
+
+
+6. Filter Orders by Customer or Order Date
+
+
+SELECT * FROM Orders WHERE CustomerID = 1 OR OrderDate = '2024-10-18';
+
+
+7. Filter Menu Items by Price and Availability Using AND/OR
+
+
+SELECT * FROM MenuItems WHERE Price < 10 AND Available = TRUE;
+
+
+8. Sort Orders by Order Date or Customer Name
+
+
+SELECT Orders.*, Customers.Name FROM Orders JOIN Customers ON Orders.CustomerID = Customers.CustomerID ORDER BY OrderDate, Customers.Name;
+
+
+9. Count the Total Number of Orders Placed for Each Menu Item (Aggregate Function)
+
+
+SELECT ItemID, COUNT(OrderID) AS TotalOrders FROM Orders GROUP BY ItemID;
+
+
+
+10. Group Orders by Customer and Calculate the Total Amount Spent by Each Customer
+
+
+SELECT Customers.CustomerID, Customers.Name, SUM(MenuItems.Price) AS TotalSpent FROM Orders JOIN Customers ON Orders.CustomerID = Customers.CustomerID
+JOIN MenuItems ON Orders.ItemID = MenuItems.ItemID
+GROUP BY Customers.CustomerID, Customers.Name;
+
+
+
+
+
+
+
+
+	
+
+
+
+  
+  
+
+
+  
+  
+
+
+  
+  
+
+
+  
+  
+
+
+	
+
+  
+  
+  
