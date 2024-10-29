@@ -1,0 +1,367 @@
+Library Management System
+
+
+Collections: Books, Authors, Members
+
+1. Books Collection
+
+db.createCollection("Books", {
+    validator: {
+        $jsonSchema: {
+            bsonType: "object",
+            required: ["ISBN", "Title", "AuthorID", "Genre", "AvailabilityStatus"],
+            properties: {
+                ISBN: { bsonType: "string", description: "must be a string and is required" },
+                Title: { bsonType: "string", description: "must be a string and is required" },
+                AuthorID: { bsonType: "int", description: "must be an integer and is required" },
+                Genre: { bsonType: "string", description: "must be a string and is required" },
+                AvailabilityStatus: { bsonType: "bool", description: "must be a boolean indicating if the book is available" }
+            }
+        }
+    }
+});
+
+
+2. Authors Collection
+
+db.createCollection("Authors", {
+    validator: {
+        $jsonSchema: {
+            bsonType: "object",
+            required: ["AuthorID", "Name"],
+            properties: {
+                AuthorID: { bsonType: "int", description: "must be an integer and is required" },
+                Name: { bsonType: "string", description: "must be a string and is required" }
+            }
+        }
+    }
+});
+
+
+3. Members Collection
+
+db.createCollection("Members", {
+    validator: {
+        $jsonSchema: {
+            bsonType: "object",
+            required: ["MemberID", "Name"],
+            properties: {
+                MemberID: { bsonType: "int", description: "must be an integer and is required" },
+                Name: { bsonType: "string", description: "must be a string and is required" }
+            }
+        }
+    }
+});
+
+
+4. Create Loans Collection
+
+db.createCollection("Loans", {
+    validator: {
+        $jsonSchema: {
+            bsonType: "object",
+            required: ["LoanID", "MemberID", "ISBN", "LoanDate", "ReturnDate"],
+            properties: {
+                LoanID: { bsonType: "int", description: "must be an integer and is required" },
+                MemberID: { bsonType: "int", description: "must be an integer and is required" },
+                ISBN: { bsonType: "string", description: "must be a string and is required" },
+                LoanDate: { bsonType: "date", description: "must be a date and is required" },
+                ReturnDate: { bsonType: "date", description: "return date of the loan" }
+            }
+        }
+    }
+});
+
+
+
+
+Step 2: Insert Sample Data
+
+db.Books.insertMany([
+    { ISBN: "978-3-16-148410-0", Title: "Book A", AuthorID: 1, Genre: "Fiction", AvailabilityStatus: true },
+    { ISBN: "978-1-61-729414-0", Title: "Book B", AuthorID: 2, Genre: "Science", AvailabilityStatus: true },
+    { ISBN: "978-0-13-110362-7", Title: "Book C", AuthorID: 1, Genre: "Fiction", AvailabilityStatus: false }
+]);
+
+
+Here’s a breakdown of how to implement each task in your Library Management System using MongoDB:
+Step 1: Create Collections
+
+First, we’ll create collections for Books, Authors, Members, and Loans.
+1. Create Books Collection
+
+javascript
+
+db.createCollection("Books", {
+    validator: {
+        $jsonSchema: {
+            bsonType: "object",
+            required: ["ISBN", "Title", "AuthorID", "Genre", "AvailabilityStatus"],
+            properties: {
+                ISBN: { bsonType: "string", description: "must be a string and is required" },
+                Title: { bsonType: "string", description: "must be a string and is required" },
+                AuthorID: { bsonType: "int", description: "must be an integer and is required" },
+                Genre: { bsonType: "string", description: "must be a string and is required" },
+                AvailabilityStatus: { bsonType: "bool", description: "must be a boolean indicating if the book is available" }
+            }
+        }
+    }
+});
+
+2. Create Authors Collection
+
+javascript
+
+db.createCollection("Authors", {
+    validator: {
+        $jsonSchema: {
+            bsonType: "object",
+            required: ["AuthorID", "Name"],
+            properties: {
+                AuthorID: { bsonType: "int", description: "must be an integer and is required" },
+                Name: { bsonType: "string", description: "must be a string and is required" }
+            }
+        }
+    }
+});
+
+3. Create Members Collection
+
+javascript
+
+db.createCollection("Members", {
+    validator: {
+        $jsonSchema: {
+            bsonType: "object",
+            required: ["MemberID", "Name"],
+            properties: {
+                MemberID: { bsonType: "int", description: "must be an integer and is required" },
+                Name: { bsonType: "string", description: "must be a string and is required" }
+            }
+        }
+    }
+});
+
+4. Create Loans Collection
+
+javascript
+
+db.createCollection("Loans", {
+    validator: {
+        $jsonSchema: {
+            bsonType: "object",
+            required: ["LoanID", "MemberID", "ISBN", "LoanDate", "ReturnDate"],
+            properties: {
+                LoanID: { bsonType: "int", description: "must be an integer and is required" },
+                MemberID: { bsonType: "int", description: "must be an integer and is required" },
+                ISBN: { bsonType: "string", description: "must be a string and is required" },
+                LoanDate: { bsonType: "date", description: "must be a date and is required" },
+                ReturnDate: { bsonType: "date", description: "return date of the loan" }
+            }
+        }
+    }
+});
+
+Step 2: Insert Sample Data
+Insert Books
+
+javascript
+
+db.Books.insertMany([
+    { ISBN: "978-3-16-148410-0", Title: "Book A", AuthorID: 1, Genre: "Fiction", AvailabilityStatus: true },
+    { ISBN: "978-1-61-729414-0", Title: "Book B", AuthorID: 2, Genre: "Science", AvailabilityStatus: true },
+    { ISBN: "978-0-13-110362-7", Title: "Book C", AuthorID: 1, Genre: "Fiction", AvailabilityStatus: false }
+]);
+
+Step 3: Query Examples
+
+1. Select All Books by a Specific Author
+
+db.Books.find({ AuthorID: 1 });
+
+
+2. Update the Availability Status of a Book when Loaned Out
+
+
+db.Books.updateOne({ ISBN: "978-3-16-148410-0" }, { $set: { AvailabilityStatus: false } });
+
+
+3. Delete Members Who Have Not Borrowed a Book in the Last Year
+
+
+const oneYearAgo = new Date();
+oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
+
+
+const recentBorrowers = db.Loans.find({ LoanDate: { $gte: oneYearAgo } })
+                                .map(loan => loan.MemberID);
+
+
+db.Members.deleteMany({
+    MemberID: { $nin: recentBorrowers }
+});
+
+Here’s a breakdown of how to implement each task in your Library Management System using MongoDB:
+Step 1: Create Collections
+
+First, we’ll create collections for Books, Authors, Members, and Loans.
+1. Create Books Collection
+
+javascript
+
+db.createCollection("Books", {
+    validator: {
+        $jsonSchema: {
+            bsonType: "object",
+            required: ["ISBN", "Title", "AuthorID", "Genre", "AvailabilityStatus"],
+            properties: {
+                ISBN: { bsonType: "string", description: "must be a string and is required" },
+                Title: { bsonType: "string", description: "must be a string and is required" },
+                AuthorID: { bsonType: "int", description: "must be an integer and is required" },
+                Genre: { bsonType: "string", description: "must be a string and is required" },
+                AvailabilityStatus: { bsonType: "bool", description: "must be a boolean indicating if the book is available" }
+            }
+        }
+    }
+});
+
+2. Create Authors Collection
+
+javascript
+
+db.createCollection("Authors", {
+    validator: {
+        $jsonSchema: {
+            bsonType: "object",
+            required: ["AuthorID", "Name"],
+            properties: {
+                AuthorID: { bsonType: "int", description: "must be an integer and is required" },
+                Name: { bsonType: "string", description: "must be a string and is required" }
+            }
+        }
+    }
+});
+
+3. Create Members Collection
+
+javascript
+
+db.createCollection("Members", {
+    validator: {
+        $jsonSchema: {
+            bsonType: "object",
+            required: ["MemberID", "Name"],
+            properties: {
+                MemberID: { bsonType: "int", description: "must be an integer and is required" },
+                Name: { bsonType: "string", description: "must be a string and is required" }
+            }
+        }
+    }
+});
+
+4. Create Loans Collection
+
+javascript
+
+db.createCollection("Loans", {
+    validator: {
+        $jsonSchema: {
+            bsonType: "object",
+            required: ["LoanID", "MemberID", "ISBN", "LoanDate", "ReturnDate"],
+            properties: {
+                LoanID: { bsonType: "int", description: "must be an integer and is required" },
+                MemberID: { bsonType: "int", description: "must be an integer and is required" },
+                ISBN: { bsonType: "string", description: "must be a string and is required" },
+                LoanDate: { bsonType: "date", description: "must be a date and is required" },
+                ReturnDate: { bsonType: "date", description: "return date of the loan" }
+            }
+        }
+    }
+});
+
+Step 2: Insert Sample Data
+Insert Books
+
+javascript
+
+db.Books.insertMany([
+    { ISBN: "978-3-16-148410-0", Title: "Book A", AuthorID: 1, Genre: "Fiction", AvailabilityStatus: true },
+    { ISBN: "978-1-61-729414-0", Title: "Book B", AuthorID: 2, Genre: "Science", AvailabilityStatus: true },
+    { ISBN: "978-0-13-110362-7", Title: "Book C", AuthorID: 1, Genre: "Fiction", AvailabilityStatus: false }
+]);
+
+Step 3: Query Examples
+1. Select All Books by a Specific Author
+
+javascript
+
+db.Books.find({ AuthorID: 1 });
+
+2. Update the Availability Status of a Book when Loaned Out
+
+Set AvailabilityStatus to false for a loaned book:
+
+javascript
+
+db.Books.updateOne({ ISBN: "978-3-16-148410-0" }, { $set: { AvailabilityStatus: false } });
+
+3. Delete Members Who Have Not Borrowed a Book in the Last Year
+
+Find members with no loans in the past year and delete them:
+
+javascript
+
+const oneYearAgo = new Date();
+oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
+
+db.Members.deleteMany({
+    MemberID: { 
+        $nin: db.Loans.find({ LoanDate: { $gte: oneYearAgo } }).map(loan => loan.MemberID)
+    }
+});
+
+
+4. Filter Books Based on Genre and Availability
+
+db.Books.find({ Genre: "Fiction", AvailabilityStatus: true });
+
+
+5. Use AND/OR to Find Books by Genre and Publication Year
+
+db.Books.find({
+    $or: [
+        { Genre: "Science" },
+        { PublicationYear: { $gt: 2020 } }
+    ]
+});
+
+
+6. Sort Books by Title or Author Name
+
+db.Books.find().sort({ Title: 1 });
+
+db.Books.find().sort({ AuthorID: -1 });
+
+
+7. Use Aggregate to Count the Total Number of Books
+
+
+db.Books.aggregate([
+    { $count: "totalBooks" }
+]);
+
+
+8. Group Books by Genre and Count Available Books in Each Genre
+
+
+db.Books.aggregate([
+    { $match: { AvailabilityStatus: true } },
+    { $group: { _id: "$Genre", availableBooks: { $count: {} } } }
+]);
+
+
+
+
+
+
+
