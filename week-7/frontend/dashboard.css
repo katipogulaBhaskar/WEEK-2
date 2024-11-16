@@ -1,0 +1,170 @@
+/* Reset some basic styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Body and general layout */
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f7fa;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+  
+  /* Container for the dashboard */
+  .container {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px;
+    padding: 20px;
+  }
+  
+  /* Header styles */
+  h1 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  /* Button style */
+  .btn {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Task form */
+  #task-form {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  
+  #task-input {
+    width: 80%;
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+  }
+  
+  #task-form button {
+    width: 12%; /* Reduced size of Add Task button */
+    padding: 8px;
+    font-size: 0.9rem; /* Smaller font size */
+    background-color: #28a745;
+  }
+  
+  #task-form button:hover {
+    background-color: #218838;
+  }
+  
+  /* Task list styles */
+  #tasks-container {
+    margin-top: 20px;
+  }
+  
+  .task {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .task span {
+    font-size: 1.2rem;
+    color: #333;
+    flex: 1; /* Ensures that the task title takes up available space */
+  }
+  
+  .task button {
+    margin-left: 10px; /* Adds space between the buttons */
+    padding: 5px 10px;
+    font-size: 0.9rem;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .delete-btn {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+  }
+  
+  .update-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+  }
+  
+  .delete-btn:hover {
+    background-color: #c82333;
+  }
+  
+  .update-btn:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Adding space between Update and Delete buttons */
+  .task button:not(:last-child) {
+    margin-right: 10px;
+  }
+  
+  /* Log Out button */
+  #logout-btn {
+    width: 100%;
+    margin-top: 20px;
+    background-color: #ffc107;
+  }
+  
+  #logout-btn:hover {
+    background-color: #e0a800;
+  }
+  
+  /* Mobile responsiveness */
+  @media (max-width: 600px) {
+    .container {
+      width: 90%;
+      padding: 15px;
+    }
+  
+    #task-form {
+      flex-direction: column;
+    }
+  
+    #task-input {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+  
+    #task-form button {
+      width: 100%;
+    }
+  
+    .task {
+      font-size: 0.9rem;
+    }
+  }
+  

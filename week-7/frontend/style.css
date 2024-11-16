@@ -1,0 +1,113 @@
+/* Global styles */
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+}
+
+.container {
+    width: 300px;
+    padding: 20px;
+    background: white;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    text-align: center;
+}
+
+/* Styling for all input fields */
+input {
+    width: 95%;
+    padding: 10px;
+    margin: 10px 0; /* Fix the extra comma issue */
+    border-radius: 4px;
+    border: 1px solid #ccc; /* Fix the comma issue in border property */
+}
+
+/* Button styling */
+button {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+#message {
+    color: #ff0000;
+    margin-top: 10px;
+}
+
+/* Additional Styling for Change Password Form */
+#changePasswordSection {
+    margin-top: 20px;
+    display: none; /* Hidden by default */
+}
+
+#changePasswordSection h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+#changePasswordSection form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#changePasswordSection input {
+    width: 100%;
+    margin: 10px 0;
+}
+
+/* Styling for the logout button */
+#logoutButton {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    background-color: #dc3545; /* Red for logout */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    display: none; /* Hidden by default */
+}
+
+#logoutButton:hover {
+    background-color: #c82333;
+}
+
+/* For spacing between forms */
+form {
+    margin-bottom: 20px;
+}
+
+/* Styling for Signup and Login Sections */
+h1, h2 {
+    margin-top: 0;
+    color: #333;
+}
+
+h1 {
+    font-size: 22px;
+}
+
+h2 {
+    font-size: 18px;
+    margin-top: 20px;
+}
+
+#SignupForm, #LoginForm {
+    margin-bottom: 20px;
+}
